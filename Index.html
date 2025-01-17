@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusFlow</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="menu">
+            <ul>
+                <li><a href="#" data-timer="work">Work Timer</a></li>
+                <li><a href="#" data-timer="shortBreak">Short Break</a></li>
+                <li><a href="#" data-timer="longBreak">Long Break</a></li>
+            </ul>
+        </nav>
+        <div class="content">
+            <h1>FocusFlow</h1>
+            <div id="workTimer" class="timer-section">
+                <h2>Work Timer</h2>
+                <div class="timer" id="timer">25:00</div>
+            </div>
+            <div id="shortBreakTimer" class="timer-section">
+                <h2>Short Break Timer</h2>
+                <div class="timer" id="timer">05:00</div>
+            </div>
+            <div id="longBreakTimer" class="timer-section">
+                <h2>Long Break Timer</h2>
+                <div class="timer" id="timer">15:00</div>
+            </div>
+            <div class="controls">
+                <button id="start">Start</button>
+                <button id="pause">Pause</button>
+                <button id="reset">Reset</button>
+            </div>
+            <div class="settings">
+                <label for="workTime">Work: </label>
+                <input type="number" id="workTime" value="25" min="1"> min
+                <input type="range" id="workTimeRange" value="25" min="1" max="60"> <!-- Added range input -->
+                <label for="shortBreakTime">Short Break: </label>
+                <input type="number" id="shortBreakTime" value="5" min="1"> min
+                <input type="range" id="shortBreakTimeRange" value="5" min="1" max="30"> <!-- Added range input -->
+                <label for="longBreakTime">Long Break: </label>
+                <input type="number" id="longBreakTime" value="15" min="1"> min
+                <input type="range" id="longBreakTimeRange" value="15" min="1" max="60"> <!-- Added range input -->
+            </div>
+        </div>
+    </div>
+    <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
