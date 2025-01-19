@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithmics Quiz - Mathletics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f5f9ff;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+        }
+        .navbar {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease-in-out;
+        }
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+        .navbar-brand:hover {
+            color: #eff3f8 !important;
+        }
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .quiz-header h1 {
+            color: #2575fc;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .quiz-header p {
+            color: #555;
+            font-size: 1.2rem;
+        }
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .quiz-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        .quiz-container h3 {
+            color: #6a11cb;
+            margin-bottom: 20px;
+        }
+        button {
+            background: linear-gradient(90deg, #2575fc, #6a11cb);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            color: #fff;
+        }
+        footer {
+            background-color: #6a11cb;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+        footer p {
+            margin: 0;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="Home.html">Mathletics</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="quiz-header">
+            <h1>Algorithmics Quiz</h1>
+            <p>Challenge your algorithmic thinking with these unique questions!</p>
+        </div>
+
+        <div class="quiz-container">
+            <form id="quizForm">
+                <div id="quizContent"></div>
+                <button type="submit" class="btn-mt-4">Submit Answers</button>
+            </form>
+        </div>
+
+        <div id="resultContainer" class="mt-4" style="display: none;">
+            <h3>Your Results:</h3>
+            <ul id="resultsList"></ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Mathletics. Fueling minds, shaping futures.</p>
+        <p>Designed and built by Rayan Remili</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const questions = [
+            { question: 'What is the time complexity of binary search?', options: ['O(n)', 'O(log n)', 'O(n^2)'], correct: 1 },
+            { question: 'Which data structure is used for implementing recursion?', options: ['Queue', 'Stack', 'Array'], correct: 1 },
+            { question: 'What is a greedy algorithm?', options: ['Always optimal', 'Selects best at the moment', 'All options'], correct: 1 },
+            { question: 'What is the output of merge sort for [5, 2, 4, 1]?', options: ['[5, 4, 2, 1]', '[1, 2, 4, 5]', '[2, 1, 5, 4]'], correct: 1 },
+            { question: 'What is an adjacency list?', options: ['Matrix representation', 'List of nodes and edges', 'Sorted list'], correct: 1 },
+            { question: 'What is the best case complexity of quicksort?', options: ['O(n log n)', 'O(n)', 'O(n^2)'], correct: 0 },
+            { question: 'What is the maximum height of a binary tree with n nodes?', options: ['n', 'log n', 'n/2'], correct: 0 },
+            { question: 'Which algorithm finds the shortest path in a weighted graph?', options: ['DFS', 'BFS', 'Dijkstra'], correct: 2 },
+            { question: 'What is the use of a hash function?', options: ['Searching', 'Sorting', 'All of the above'], correct: 0 },
+            { question: 'What is the time complexity of linear search?', options: ['O(n)', 'O(log n)', 'O(n^2)'], correct: 0 },
+            { question: 'Which data structure is commonly used for implementing a priority queue?', options: ['Stack', 'Heap', 'Linked List'], correct: 1 },
+            { question: 'What is a divide and conquer algorithm?', options: ['Breaks the problem into smaller subproblems', 'Solves the problem step by step', 'Uses greedy choices'], correct: 0 },
+            { question: 'What is the output of the quicksort algorithm for [3, 1, 4, 2]?', options: ['[1, 2, 3, 4]', '[4, 3, 2, 1]', '[2, 4, 3, 1]'], correct: 0 },
+            { question: 'What is the primary advantage of using a hash table?', options: ['Faster searching', 'Less memory usage', 'Easier to implement'], correct: 0 },
+            { question: 'What is the worst-case time complexity of bubble sort?', options: ['O(n)', 'O(n log n)', 'O(n^2)'], correct: 2 },
+            { question: 'Which algorithm is typically used for web search engines?', options: ['Depth First Search (DFS)', 'Breadth First Search (BFS)', 'PageRank'], correct: 2 },
+            { question: 'Which data structure is best suited for implementing a queue?', options: ['Stack', 'Linked List', 'Array'], correct: 1 },
+            { question: 'What is the primary purpose of the Bellman-Ford algorithm?', options: ['Find the shortest path in unweighted graphs', 'Find the shortest path in weighted graphs', 'Find the minimum spanning tree'], correct: 1 },
+            { question: 'Which sorting algorithm has the best average-case performance?', options: ['Merge Sort', 'Insertion Sort', 'Quick Sort'], correct: 0 },
+            { question: 'Which algorithm is used to find the minimum spanning tree?', options: ['Kruskal', 'Dijkstra', 'Floyd-Warshall'], correct: 0 },
+            { question: 'What does a depth-first search (DFS) algorithm do?', options: ['Explores all nodes at a level before moving to the next level', 'Explores one path as far as possible before backtracking', 'Both'], correct: 1 },
+            { question: 'What is the best case time complexity of bubble sort?', options: ['O(n)', 'O(n log n)', 'O(n^2)'], correct: 0 },
+            { question: 'Which data structure is used for depth-first search?', options: ['Queue', 'Stack', 'Array'], correct: 1 },
+            { question: 'What is the worst-case time complexity of selection sort?', options: ['O(n)', 'O(n log n)', 'O(n^2)'], correct: 2 },
+            { question: 'Which algorithm is used for finding the shortest path in an unweighted graph?', options: ['DFS', 'BFS', 'Dijkstra'], correct: 1 },
+            { question: 'What is the time complexity of inserting an element into a heap?', options: ['O(log n)', 'O(n)', 'O(n log n)'], correct: 0 },
+            { question: 'What is the purpose of a linked list?', options: ['Allow fast access to elements', 'Allow easy insertion and deletion of elements', 'Store elements in a sorted order'], correct: 1 },
+            { question: 'What is the worst-case time complexity of merge sort?', options: ['O(n)', 'O(n log n)', 'O(n^2)'], correct: 1 },
+            { question: 'Which algorithm is used to sort a list of elements in non-decreasing order?', options: ['Selection Sort', 'Merge Sort', 'Both'], correct: 2 },
+            { question: 'What is the primary benefit of using a binary search tree?', options: ['Faster insertions', 'Faster search and retrieval', 'Better sorting'], correct: 1 },
+            { question: 'Which data structure is used for breadth-first search?', options: ['Queue', 'Stack', 'Array'], correct: 0 },
+            { question: 'What is the best case time complexity of insertion sort?', options: ['O(n)', 'O(n log n)', 'O(n^2)'], correct: 0 },
+            { question: 'Which algorithm is commonly used for solving optimization problems?', options: ['Greedy algorithm', 'Dynamic programming', 'Both'], correct: 2 },
+            { question: 'What is the time complexity of deleting an element from a heap?', options: ['O(log n)', 'O(n)', 'O(n log n)'], correct: 0 },
+            { question: 'What is the maximum number of comparisons in a binary search tree with n nodes?', options: ['n', 'log n', '2n'], correct: 1 },
+            { question: 'What is the space complexity of quicksort?', options: ['O(1)', 'O(log n)', 'O(n)'], correct: 1 },
+            { question: 'Which sorting algorithm works by repeatedly swapping adjacent elements if they are in the wrong order?', options: ['Insertion Sort', 'Bubble Sort', 'Quick Sort'], correct: 1 },
+            { question: 'Which algorithm is used in Google Maps?', options: ['Dijkstra', 'Bellman-Ford', 'DFS'], correct: 0 },    
+        ];
+
+        const generateRandomQuestions = () => {
+            const selectedQuestions = [];
+            const usedIndexes = new Set();
+            while (selectedQuestions.length < 5) {
+                const randomIndex = Math.floor(Math.random() * questions.length);
+                if (!usedIndexes.has(randomIndex)) {
+                    usedIndexes.add(randomIndex);
+                    selectedQuestions.push(questions[randomIndex]);
+                }
+            }
+            return selectedQuestions;
+        };
+
+        const renderQuiz = (questions) => {
+            const quizContent = document.getElementById('quizContent');
+            quizContent.innerHTML = '';
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('mb-3');
+                questionDiv.innerHTML = `
+                    <h5>${index + 1}. ${q.question}</h5>
+                    ${q.options
+                        .map(
+                            (opt, i) => `
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="q${index}" value="${i}" id="q${index}o${i}">
+                            <label class="form-check-label" for="q${index}o${i}">${opt}</label>
+                        </div>
+                    `
+                        )
+                        .join('')}
+                `;
+                quizContent.appendChild(questionDiv);
+            });
+        };
+
+        const displayResults = (userAnswers, questions) => {
+            const resultsContainer = document.getElementById('resultContainer');
+            const resultsList = document.getElementById('resultsList');
+            resultsContainer.style.display = 'block';
+            resultsList.innerHTML = '';
+            let correctCount = 0;
+
+            userAnswers.forEach((ans, index) => {
+                const listItem = document.createElement('li');
+                if (ans == questions[index].correct) {
+                    listItem.textContent = `Question ${index + 1}: Correct`;
+                    listItem.style.color = 'green';
+                    correctCount++;
+                } else {
+                    listItem.textContent = `Question ${index + 1}: Incorrect (Correct answer: ${questions[index].options[questions[index].correct]})`;
+                    listItem.style.color = 'red';
+                }
+                resultsList.appendChild(listItem);
+            });
+
+            const summary = document.createElement('p');
+            summary.textContent = `You answered ${correctCount} out of ${questions.length} correctly.`;
+            summary.style.fontWeight = 'bold';
+            resultsList.appendChild(summary);
+        };
+
+        const currentQuestions = generateRandomQuestions();
+        renderQuiz(currentQuestions);
+
+        document.getElementById('quizForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userAnswers = [];
+            currentQuestions.forEach((q, index) => {
+                const answer = document.querySelector(`input[name="q${index}"]:checked`);
+                userAnswers.push(answer ? parseInt(answer.value) : -1);
+            });
+            displayResults(userAnswers, currentQuestions);
+        });
+    </script>
+</body>
+</html>
